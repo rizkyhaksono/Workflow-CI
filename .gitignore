@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+# NOTE: mlruns/ diunggah sebagai artifact oleh CI; jangan abaikan bila ingin commit.
+.DS_Store
+run_id.txt
