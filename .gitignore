@@ -2,6 +2,9 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints/
 .venv/
-# NOTE: mlruns/ diunggah sebagai artifact oleh CI; jangan abaikan bila ingin commit.
 .DS_Store
 run_id.txt
+# mlruns dibuat ulang oleh CI (di-rm lalu di-generate), jadi JANGAN di-commit.
+# Run lokal yang ikut ter-commit menyimpan path absolut laptop dan membuat CI gagal.
+mlruns/
+MLProject/mlruns/

@@ -37,14 +37,21 @@ jobs:
       - name: Run mlflow project
         working-directory: MLProject
         run: |
+          # Bersihkan mlruns lama (mis. hasil run lokal yang ikut ter-commit)
+          # agar run_id & artifact_uri yang dipakai benar-benar dari run CI ini.
+          rm -rf mlruns
           mlflow run . --env-manager local
 
       - name: Get latest MLflow run_id
         working-directory: MLProject
         run: |
-          RUN_ID=$(python -c "import mlflow; mlflow.set_tracking_uri('file:./mlruns'); r=mlflow.search_runs(order_by=['start_time DESC'], max_results=1); print(r.loc[0,'run_id'])")
+          # Ambil run_id dari file yang ditulis modelling.py (run CI yang baru),
+          # bukan dari search_runs yang bisa keliru memilih run lama.
+          RUN_ID=$(cat run_id.txt)
           echo "Captured RUN_ID=$RUN_ID"
           echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
+          # Verifikasi folder model benar-benar ada sebelum build-docker.
+          ls -la "mlruns/0/$RUN_ID/artifacts/model"
 
       - name: Install Python dependencies
         run: |
