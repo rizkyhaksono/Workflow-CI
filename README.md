@@ -2,8 +2,6 @@
 
 Kriteria 3 — **Workflow CI dengan MLflow Project** (Telco Customer Churn), tingkat **Advanced**.
 
-test
-
 ## Struktur
 
 ```
